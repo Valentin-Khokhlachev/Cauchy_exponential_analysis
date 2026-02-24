@@ -39,3 +39,11 @@
 
 # debug information files
 *.dwo
+
+/build
+/results
+/results_interpretators/graph
+/text/build
+*.asv
+
+

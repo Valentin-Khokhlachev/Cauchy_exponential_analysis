@@ -1,0 +1,4 @@
+// #define EIGEN_DONT_VECTORIZE
+// #define EIGEN_DONT_ALIGN
+
+#define DBOOST_MP_USING_GMP

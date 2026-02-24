@@ -1,0 +1,105 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{authblk}
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+
+\begin{document}
+	
+	\section*{Формула трапеций (запись через веса)}
+	Вещественная сетка из $N$ узлов ($N - 1$ шагов).
+	\begin{equation}
+		t_{n} = t_{\text{start}} + h_{t}n, n \in \left[0, N - 1\right], h_{t} = \left(t_{\text{finish}} - t_{\text{start}}\right) / \left(N - 1\right).
+	\end{equation}
+	Комплексная сетка из $M$ узлов ($M - 1$ шагов).
+	\begin{equation}
+		z\left(s\right) = \varphi\left(s\right), h_{z}\left(s\right)=z\left(s+h_{s}\right) - z\left(s\right) \approx \varphi'\left(s\right)h_{s}.
+	\end{equation}
+	\begin{equation}
+		z_{m} = z\left(s_{m}\right) = \varphi\left(s_{m}\right), h_{z}\left(s_{m}\right)=z\left(s_{m+1}\right) - z\left(s_m\right) \approx \varphi'\left(s_{m}\right)h_{s}.
+	\end{equation}
+%	\begin{equation}
+%		\varphi\left(s\right) = z_{0} + R\exp\left(2\pi i s\right), \varphi'\left(s\right) = 2\pi i R\exp\left(2\pi i s\right).
+%	\end{equation}
+	\begin{multline}
+		s_{m} = s_{\text{start}} + h_{s}m, m \in \left[0, M - 1\right],\\
+		 h_{s} = \left(s_{\text{finish}} - s_{\text{start}}\right) / \left(M - 1\right), s_{\text{start}} = 0, s_{\text{finish}} = 1.
+	\end{multline}
+%	\begin{multline}
+%		z_{m} = z_{0} + R\exp\left(2\pi i s_{m}\right), m \in \left[0, M - 1\right],\\
+%		 h_{z} = 2\pi i h_{s} R\exp\left(2\pi i s_{m}\right)=
+%		 2\pi i h_{s}\left(z_{m}-z_{0}\right), m\in\left[0, M-1\right].
+%	\end{multline}
+%	Интеграл Коши
+%	\begin{equation}
+%		u\left(t\right) = \frac{1}{2\pi i}\int_{\left|z\right|=1}\frac{\tilde{u}\left(z\right)}{z-t}dz.
+%	\end{equation}
+	Интеграл по вещественной оси
+	\begin{equation}
+		I=\int_{t_s}^{t_f}u\left(t\right)dt.
+	\end{equation}
+	Формула трапеций на вещественной сетке (общий случай)
+	\begin{multline}
+		I_{N} = \sum_{n = 0}^{N - 2}\frac{u_{n+1} + u_{n}}{2}\left(t_{n+1} - t_{n}\right) =\\
+		=\sum_{n = 0}^{N - 1}g_{n}u_{n},\quad
+		g_{n}=
+		\left\{\begin{aligned}
+			&\left(t_{1} - t_{0}\right)/2, &&n = 0,\\
+			&\left(t_{n+1} - t_{n-1}\right)/2, &&n\in\left[1,N-2\right],\\
+			&\left(t_{N-1} - t_{N-2}\right)/2, &&n=N-1.
+		\end{aligned}\right.
+	\end{multline}
+	На равномерной вещественной сетке
+	\begin{equation}
+		I_{N} = h_{t}\sum_{n = 0}^{N - 1}g_{n}u_{n},\quad
+		g_{n}=
+		\left\{\begin{aligned}
+			&1/2, &&n = 0,\\
+			&1, &&n\in\left[1,N-2\right],\\
+			&1/2, &&n=N-1.
+		\end{aligned}\right.
+	\end{equation}
+	Интеграл по контуру $C$ в комплексной плоскости
+	\begin{equation}
+		\tilde{I}=\int_{C}\tilde{u}\left(z\right)dz=\int_{0}^{1}\tilde{u}\left(\varphi\left(s\right)\right)\varphi'\left(s\right)ds.
+	\end{equation}
+	Предположим, что контур гладкий и параметризуется функцией $\varphi\left(s\right),~s\in\left[0,1\right]$. Тогда формула трапеций примет следующий вид (общий случай)
+	\begin{multline}
+		\tilde{I} = h_{s}\sum_{m = 0}^{M - 2}\frac{\tilde{u}_{m+1}\varphi'_{m+1} + \tilde{u}_{m}\varphi'_{m}}{2} =h_{s}\sum_{m=0}^{M-1}\tilde{g}_{m}\tilde{u}_{m},\\
+		\tilde{g}_{m}=
+		\left\{\begin{aligned}
+			&\varphi'_{0}/2, &&m = 0,\\
+			&\varphi'_{m}, && m\in\left[1,M-2\right],\\
+			&\varphi'_{M-1}/2 && m = M-1.
+		\end{aligned}\right.
+	\end{multline}
+	То же, но на замкнутом контуре ($\tilde{u}_{M-1} = \tilde{u}_{0}$)
+	\begin{equation}
+		\tilde{I} =h_{s}\sum_{m=0}^{M-2}\tilde{g}_{m}\tilde{u}_{m},~
+		\tilde{g}_{m}=
+		\left\{\begin{aligned}
+			&\frac{\varphi'_{0} + \varphi'_{M-1}}{2}=\varphi'_{0}, &&m = 0,\\
+			&\varphi'_{m}, && m\in\left[1,M-2\right].
+		\end{aligned}\right.
+	\end{equation}
+	
+%	\section*{Вычисление контурного интеграла}
+%	Исходный интеграл
+%	
+%	Квадратура трапеций
+%	\begin{equation}
+%		\tilde{I}_{M}= h_{s}\sum_{m=0}^{M-2}\frac{\tilde{u}\left(\varphi\left(s_{m+1}\right)\right)\varphi'\left(s_{m+1}\right)+
+%		\tilde{u}\left(\varphi\left(s_{m}\right)\right)\varphi'\left(s_{m}\right)}{2}.
+%	\end{equation}
+	
+	
+	
+\end{document}
